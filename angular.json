@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "table-destroy.git": {
+    "table-destroy": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/table-destroy.git",
+            "outputPath": "dist/table-destroy",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -27,12 +27,40 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/css_variables.css",
+                "input": "./node_modules/@sap-theming/theming-base-content/content/Base/baseLib/",
+                "output": "./assets/theming-base/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/fundamental-styles/dist/theming/",
+                "output": "./assets/fundamental-styles-theming/"
+              }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/@fundamental-ngx/core/styles/fundamental-ngx-core.css",
+              "./node_modules/fundamental-styles/dist/fonts/sap_fonts.css",
+              {
+                "input": "./node_modules/fundamental-styles/dist/fonts/sap_fiori_3_fonts.css",
+                "inject": false,
+                "bundleName": "sap_fiori_3_fonts"
+              },
+              {
+                "input": "./node_modules/fundamental-styles/dist/fonts/sap_horizon_fonts.css",
+                "inject": false,
+                "bundleName": "sap_horizon_fonts"
+              }
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "moment",
+              "highlight.js",
+              "focus-trap",
+              "@angularclass/hmr"
+            ]
           },
           "configurations": {
             "production": {
@@ -40,7 +68,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -65,10 +93,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "table-destroy.git:build:production"
+              "browserTarget": "table-destroy:build:production"
             },
             "development": {
-              "browserTarget": "table-destroy.git:build:development"
+              "browserTarget": "table-destroy:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +104,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "table-destroy.git:build"
+            "browserTarget": "table-destroy:build"
           }
         },
         "test": {
@@ -97,8 +125,22 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
