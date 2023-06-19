@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {distinctUntilChanged, filter, map, merge, Observable, of, Subscription} from 'rxjs';
+import {map, merge, Observable, of, Subscription} from 'rxjs';
 
 import {FdDate} from '@fundamental-ngx/core/datetime';
 import {
