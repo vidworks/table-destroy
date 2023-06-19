@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {distinctUntilChanged, filter, map, merge, Observable, of, Subscription} from 'rxjs';
 
 import {FdDate} from '@fundamental-ngx/core/datetime';
@@ -21,7 +21,7 @@ import {ItemTableStateService} from "../item-table-state.service";
   templateUrl: './items-page.component.html',
   styleUrls: ['./items-page.component.scss']
 })
-export class ItemsPageComponent implements OnInit, OnDestroy {
+export class ItemsPageComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(TableComponent, {static: true})
   table!: TableComponent;
 
@@ -31,14 +31,21 @@ export class ItemsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this._itemState.table = this.table;
+
     this.source = new ItemsDataSource(new ItemsDataProviderExample(), this._itemState, this.table);
     this.source.init();
   }
 
+  ngAfterViewInit(): void {
+    this._itemState.restoreScrollPos();
+
+  }
 
   ngOnDestroy(): void {
     console.log('TableDataSource on ngOnDestroy');
     this.source.destroy();
+    this._itemState.subscriptions.unsubscribe();
   }
 
   onRowToggleOpenState(event: TableRowToggleOpenStateEvent<ExampleItem>): void {
@@ -56,8 +63,6 @@ export class ItemsPageComponent implements OnInit, OnDestroy {
   toggleFirstRow(): void {
     this.table!.toggleGroupRows(0);
   }
-
-
 }
 
 export interface ExampleItem {
@@ -86,6 +91,7 @@ export class ItemsDataSource extends TableDataSource<TableRow> {
   }
 
   init(): void {
+    // maybe move this ItemTableStateService
     merge(
       this._onDataReceived$,
       this.table!.rowSelectionChange,
@@ -134,10 +140,6 @@ export class ItemsDataProviderExample extends TableDataProvider<TableRow> {
   }
 
   override fetch(tableState?: TableState): Observable<TableRow[]> {
-    // if (!this.initialItems) {
-    //   this.items = this.items = convertToTree(null, ITEMS);
-    // }
-
     // apply searching
     if (tableState?.searchInput) {
       this.items = this.search(this.items, tableState);
