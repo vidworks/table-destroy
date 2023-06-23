@@ -14,7 +14,7 @@ import {CdkTableModule} from "@angular/cdk/table";
 import {
   FdDatetimeModule,
   IllustratedMessageModule, LayoutPanelModule,
-  ListModule,
+  ListModule, MultiInputModule,
   ObjectStatusModule,
   PopoverModule, SegmentedButtonModule, SelectModule, TableModule,
   ToolbarModule
@@ -27,12 +27,15 @@ import {
 } from "@fundamental-ngx/platform";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import { MultiInputComponent } from './multi-input/multi-input.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
     ItemsPageComponent,
     LandingPageComponent,
+    MultiInputComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import {CommonModule} from "@angular/common";
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     CdkTableModule,
     TableModule,
     PlatformTableModule,
@@ -50,6 +54,7 @@ import {CommonModule} from "@angular/common";
     PlatformInputModule,
     PlatformSearchFieldModule,
     IllustratedMessageModule,
+    MultiInputModule,
     FdpFormGroupModule,
     SelectModule,
     SegmentedButtonModule,
