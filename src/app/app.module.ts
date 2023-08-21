@@ -23,12 +23,13 @@ import {
   FdpFormGroupModule, PlatformButtonModule,
   platformContentDensityModuleDeprecationsProvider, PlatformInputModule, PlatformListModule,
   PlatformMenuModule,
-  PlatformSearchFieldModule, PlatformTableModule
+  PlatformSearchFieldModule, PlatformTableModule, PlatformMultiComboboxModule
 } from "@fundamental-ngx/platform";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import { MultiInputComponent } from './multi-input/multi-input.component';
 import {HttpClientModule} from "@angular/common/http";
+import { MultiComboExampleComponent } from './multi-combo-example/multi-combo-example.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {HttpClientModule} from "@angular/common/http";
     ItemsPageComponent,
     LandingPageComponent,
     MultiInputComponent,
+    MultiComboExampleComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,7 @@ import {HttpClientModule} from "@angular/common/http";
     ToolbarModule,
     PlatformMenuModule,
     PopoverModule,
+    PlatformMultiComboboxModule,
     PlatformListModule,
     ListModule,
     ThemingModule.withConfig({ defaultTheme: 'sap_horizon', changeThemeOnQueryParamChange: false })
