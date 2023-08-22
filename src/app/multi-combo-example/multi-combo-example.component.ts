@@ -57,8 +57,8 @@ export class MultiComboExampleComponent {
 
 class BaseDataProviderCustom extends BaseDataProvider<any> {
   private valueSet;
-  constructor(protected override values: any[], protected selectedValues? : any[]) {
-    super(values.slice(0,10).concat(selectedValues));
+  constructor(protected override values: any[]) {
+    super(values.slice(0,10));
     this.valueSet = values;
   }
   
