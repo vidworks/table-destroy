@@ -63,7 +63,9 @@ class BaseDataProviderCustom extends BaseDataProvider<any> {
   }
   
 
-  // Below fetch is just an exmaple to reproduce the issue but ideally the fetch method will make a API call to the backend server for data filtering.
+  // Below fetch is just an exmaple to reproduce the issue 
+  // but ideally the fetch method will make a API call to the 
+  // backend server for data filtering.
   override fetch(params: Map<string, any>): Observable<any[]> {
     const observable= of(this.valueSet);
 
